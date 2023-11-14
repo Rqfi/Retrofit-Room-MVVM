@@ -7,20 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.ro.databinding.ItemDataBinding
 
-class Adapter : ListAdapter<ResultsItem, Adapter.ViewHolder>(ResultsItemDiffCallback) {
-
-    companion object{
-        private val ResultsItemDiffCallback = object : DiffUtil.ItemCallback<ResultsItem>() {
-            override fun areItemsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
-                return oldItem.name == newItem.name
-            }
-
-            override fun areContentsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
+class Adapter : ListAdapter<ResultsItem, Adapter.ViewHolder>(ResultsItemDiffCallback()) {
     class ViewHolder(val binding: ItemDataBinding) : RecyclerView.ViewHolder(binding.root){
         init {
             binding.root.setOnClickListener{
@@ -36,5 +23,15 @@ class Adapter : ListAdapter<ResultsItem, Adapter.ViewHolder>(ResultsItemDiffCall
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val result = getItem(position)
         holder.binding.result = result
+    }
+
+    private class ResultsItemDiffCallback : DiffUtil.ItemCallback<ResultsItem>() {
+        override fun areItemsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+            return oldItem == newItem
+        }
     }
 }
