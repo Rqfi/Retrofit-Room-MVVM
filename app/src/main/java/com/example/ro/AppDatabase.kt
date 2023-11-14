@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
     version = 1,
     exportSchema = false
 )
-abstract class AppDatabase(): RoomDatabase() {
+abstract class AppDatabase: RoomDatabase() {
     abstract fun appDao(): AppDao
 
     companion object{
