@@ -79,8 +79,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_below="@+id/name"
                 android:textSize="20dp"
-                android:text="@{result.height}"
-                app:setHeight="@{result}"/>
+                app:setHeight="@{result.height}" />
 
             <TextView
                 android:id="@+id/birth_year"

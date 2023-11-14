@@ -54,7 +54,7 @@ class MainViewModel : ViewModel() {
                 db.appDao().insertData(data.map {
                     Character(
                         name = it.name,
-                        height = it.gender,
+                        height = it.height,
                         birthYear = it.birthYear,
                         gender = it.gender
                     )

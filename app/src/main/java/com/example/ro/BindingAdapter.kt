@@ -4,9 +4,9 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("setHeight")
-fun setHeight(view: TextView, result: ResultsItem?) {
-    result?.let {
-        val formattedHeight = String.format("%.2f m", (result.height?.toDoubleOrNull()?: 0.0) / 100.0)
+fun setHeight(view: TextView, height: String?) {
+    height?.let {
+        val formattedHeight = String.format("%.2f m", (height?.toDoubleOrNull()?: 0.0) / 100.0)
         view.text = formattedHeight
     }
 }
