@@ -5,17 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-    private val _adapterData = MutableLiveData<List<Character>>()
-    val adapterData: LiveData<List<Character>> get() = _adapterData
-
+@HiltViewModel
+class MainViewModel @Inject constructor() : ViewModel() {
     private val _filteredData = MutableLiveData<List<Character>>()
     val filteredData: LiveData<List<Character>> get() = _filteredData
 
