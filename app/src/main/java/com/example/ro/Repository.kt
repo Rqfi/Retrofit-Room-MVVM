@@ -4,7 +4,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-    private val apiService: ApiService, private val appDao: AppDao
+    private val apiService: ApiService,
+    private val appDao: AppDao,
 ) {
     fun ResultsItem.toCharacter(): Character {
         return Character(
@@ -38,9 +39,5 @@ class Repository @Inject constructor(
     private suspend fun saveDataToRoom(data: List<ResultsItem>) {
         appDao.deleteAllData()
         appDao.insertData(data.map { it.toCharacter() })
-    }
-
-    suspend fun filterData(searchText: String): List<ResultsItem> {
-        return appDao.searchData("%$searchText%").map { it.toResultsItem() }
     }
 }

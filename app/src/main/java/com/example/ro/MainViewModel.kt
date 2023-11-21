@@ -15,7 +15,10 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(
+    private var repository: Repository
+) : ViewModel() {
+
     private val _filteredData = MutableLiveData<List<Character>>()
     val filteredData: LiveData<List<Character>> get() = _filteredData
 
@@ -26,39 +29,10 @@ class MainViewModel @Inject constructor() : ViewModel() {
     }
 
     fun fetchData(){
-        ApiConfig.getService().getData().enqueue(object : Callback<Responses> {
-            override fun onResponse(call: Call<Responses>, response: Response<Responses>) {
-                if (response.isSuccessful){
-                    response.body()?.results?.let {
-                        saveDataToRoom(it)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<Responses>, t: Throwable) {
-
-            }
-        })
-
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                repository.fetchData()
                 _filteredData.postValue(db.appDao().showAllData())
-            }
-        }
-    }
-
-    private fun saveDataToRoom(data: List<ResultsItem>){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                db.appDao().deleteAllData()
-                db.appDao().insertData(data.map {
-                    Character(
-                        name = it.name,
-                        height = it.height,
-                        birthYear = it.birthYear,
-                        gender = it.gender
-                    )
-                })
             }
         }
     }

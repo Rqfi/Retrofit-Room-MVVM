@@ -1,19 +1,21 @@
 package com.example.ro
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
 import androidx.room.Room.databaseBuilder
-import dagger.Binds
+import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
+@Singleton
+@Component(modules = [AppModule::class, NetworkModule::class, DaoModule::class])
+interface AppComponent {
+    fun inject(activity: MainActivity)
+}
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
